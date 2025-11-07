@@ -105,3 +105,9 @@ Additional documentation
 - Keep this structure organized as the project grows
 - Reference the PRD in `planning/PRD.md` for detailed specifications
 
+
+
+
+
+
+

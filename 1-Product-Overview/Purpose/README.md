@@ -12,3 +12,9 @@ A web-based tool that analyzes performance review bullets, shows instant scores,
 - Product vision statements
 - Goal definitions
 
+
+
+
+
+
+

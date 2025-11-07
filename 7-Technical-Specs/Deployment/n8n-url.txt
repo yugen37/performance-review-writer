@@ -1,0 +1,92 @@
+# N8N Instance Configuration
+
+**Deployment Platform:** Railway  
+**Status:** ✅ Active and Working  
+**Last Updated:** 2024-11-04
+
+---
+
+## N8N Instance Details
+
+### Production Instance
+- **URL**: `https://n8n-production-45b7.up.railway.app`
+- **Dashboard**: `https://n8n-production-45b7.up.railway.app`
+- **Status**: ✅ Active and Working
+- **Platform**: Railway
+
+### API Configuration
+- **Base URL**: `https://n8n-production-45b7.up.railway.app`
+- **API Endpoint**: `https://n8n-production-45b7.up.railway.app/api/v1`
+- **Webhook Base URL**: `https://n8n-production-45b7.up.railway.app/webhook`
+
+### Authentication
+- **API Key (JWT)**: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZGEwMzQ4NS00YjZjLTQwOGEtOGU0Mi0yN2ZmNjFhMDk2YTkiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzYyMjE1OTc3fQ.DJQ9vaunDCtKSIGIOxCinKsfsPR9SNO2b6vrPUs9Rg8`
+- **Login Email**: `Yugen37@gmail.com`
+- **Login Password**: (stored in CREDENTIALS_MASTER.md)
+
+---
+
+## Webhook Endpoints (To Be Created)
+
+### Analysis Workflow
+- **Path**: `/webhook/analyze`
+- **Method**: POST
+- **Full URL**: `https://n8n-production-45b7.up.railway.app/webhook/analyze`
+- **Status**: ⏭️ To be created in Step 4
+
+### Rewrite Workflow
+- **Path**: `/webhook/rewrite`
+- **Method**: POST
+- **Full URL**: `https://n8n-production-45b7.up.railway.app/webhook/rewrite`
+- **Status**: ⏭️ To be created in Step 6
+
+---
+
+## Environment Variables
+
+### For Frontend (Cloudflare Pages)
+```bash
+VITE_N8N_ANALYZE_URL=https://n8n-production-45b7.up.railway.app/webhook/analyze
+VITE_N8N_REWRITE_URL=https://n8n-production-45b7.up.railway.app/webhook/rewrite
+```
+
+### For N8N Workflows (Internal)
+- `OPENAI_API_KEY`: (to be configured in Step 6)
+- Google Sheets credentials: (to be configured in Step 5)
+
+---
+
+## Verification
+
+### Test Dashboard Access
+- ✅ N8N dashboard accessible at: `https://n8n-production-45b7.up.railway.app`
+- ✅ API access verified via N8N MCP
+- ✅ Health check: Healthy
+
+### Next Steps
+1. ✅ N8N instance ready
+2. ⏭️ Create Analysis workflow (Step 4)
+3. ⏭️ Configure Google Sheets integration (Step 5)
+4. ⏭️ Create Rewrite workflow (Step 6)
+
+---
+
+## Notes
+
+- This N8N instance is shared across projects but can handle multiple workflows
+- Each workflow will have its own webhook path
+- Workflows for Performance Review Writer will be separate from other projects
+- All workflows will be documented in their respective folders
+
+---
+
+**Instance Type:** Shared (can host multiple project workflows)  
+**Recommended:** Use existing instance (sufficient for MVP)  
+**Alternative:** Create new Railway project if isolation needed
+
+
+
+
+
+
+

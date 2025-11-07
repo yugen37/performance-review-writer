@@ -1,0 +1,125 @@
+{
+  "name": "Performance Review Analyzer",
+  "id": "5uYz4TSeCAx1zjoR",
+  "active": true,
+  "createdAt": "2025-11-05T02:13:17.410Z",
+  "updatedAt": "2025-11-05T02:13:24.321Z",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "analyze",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "webhook-analyze",
+      "name": "Webhook - Analyze",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [240, 300],
+      "webhookId": "analyze"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Input Validation\nconst body = $input.first().json.body || $input.first().json;\nconst text = body.text;\n\n// Check if text exists and is not empty\nif (!text || text.trim() === '') {\n  return [{ \n    json: { \n      error: true,\n      message: 'Text cannot be empty',\n      statusCode: 400\n    } \n  }];\n}\n\n// Count words\nconst wordCount = text.trim().split(/\\s+/).length;\n\n// Check if text exceeds 200 words\nif (wordCount > 200) {\n  return [{ \n    json: { \n      error: true,\n      message: 'Text exceeds 200 words. Please enter a single bullet point.',\n      statusCode: 400\n    } \n  }];\n}\n\n// Validation passed\nreturn [{ \n  json: { \n    text: text.trim(),\n    wordCount: wordCount,\n    error: false\n  } \n}];"
+      },
+      "id": "input-validation",
+      "name": "Input Validation",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.error }}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "check-error",
+      "name": "Has Error?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// XYZ Framework Score Calculation\nconst text = $input.first().json.text.toLowerCase();\nconst originalText = $input.first().json.text;\n\nconst breakdown = {\n  outcome: { found: false, reason: '' },\n  metrics: { found: false, reason: '' },\n  method: { found: false, reason: '' }\n};\n\n// Check for OUTCOME (X)\nconst outcomeKeywords = ['achieved', 'delivered', 'improved', 'increased', 'decreased', 'reduced', 'led', 'drove', 'established', 'created', 'launched', 'implemented'];\nfor (const keyword of outcomeKeywords) {\n  if (text.includes(keyword)) {\n    breakdown.outcome.found = true;\n    breakdown.outcome.reason = `Contains achievement indicator`;\n    break;\n  }\n}\nif (!breakdown.outcome.found) breakdown.outcome.reason = 'Missing clear achievement or impact statement';\n\n// Check for METRICS (Y)\nif (/\\d+/.test(text)) {\n  breakdown.metrics.found = true;\n  breakdown.metrics.reason = 'Contains quantifiable metrics';\n} else {\n  breakdown.metrics.reason = 'No quantifiable metrics detected';\n}\n\n// Check for METHOD (Z)\nconst methodKeywords = ['by', 'through', 'via', 'using', 'with', 'implementing', 'executing', 'managing', 'leading'];\nfor (const keyword of methodKeywords) {\n  if (text.includes(keyword)) {\n    breakdown.method.found = true;\n    breakdown.method.reason = `Contains method indicator`;\n    break;\n  }\n}\nif (!breakdown.method.found) breakdown.method.reason = 'Missing explanation of how the work was done';\n\n// Calculate score\nlet score = 0;\nif (breakdown.outcome.found) score += 40;\nif (breakdown.metrics.found) score += 40;\nif (breakdown.method.found) score += 20;\n\n// Generate pain point message\nlet painPoint = '';\nif (score < 40) painPoint = 'Your review is weak and missing impact. Add specific achievements and measurable results.';\nelse if (score < 70) painPoint = 'Your review is generic and needs improvement. Add more quantifiable metrics or explain your method.';\nelse if (score < 90) painPoint = 'Your review is good but could be stronger. Consider adding more detail to missing elements.';\nelse painPoint = 'Excellent! Your review demonstrates clear impact with measurable results.';\n\nreturn [{ json: { score, breakdown, painPoint, originalText } }];"
+      },
+      "id": "score-calculation",
+      "name": "Score Calculation - XYZ",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 200]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseCode": "={{ $json.statusCode || 200 }}"
+        }
+      },
+      "id": "respond-success",
+      "name": "Respond Success",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1120, 200]
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { error: $json.message, statusCode: $json.statusCode } }}",
+        "options": {
+          "responseCode": "={{ $json.statusCode }}"
+        }
+      },
+      "id": "respond-error",
+      "name": "Respond Error",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [900, 400]
+    }
+  ],
+  "connections": {
+    "Webhook - Analyze": {
+      "main": [[{"node": "Input Validation", "type": "main", "index": 0}]]
+    },
+    "Input Validation": {
+      "main": [[{"node": "Has Error?", "type": "main", "index": 0}]]
+    },
+    "Has Error?": {
+      "main": [
+        [{"node": "Score Calculation - XYZ", "type": "main", "index": 0}],
+        [{"node": "Respond Error", "type": "main", "index": 0}]
+      ]
+    },
+    "Score Calculation - XYZ": {
+      "main": [[{"node": "Respond Success", "type": "main", "index": 0}]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "webhookUrl": "https://n8n-production-45b7.up.railway.app/webhook/analyze",
+  "triggerCount": 1,
+  "testResults": {
+    "allTestsPassed": true,
+    "testsRun": 5,
+    "testsPassed": 5,
+    "testsFailed": 0,
+    "timestamp": "2025-11-04T19:13:52Z"
+  }
+}
+
+
+
+
+
+
+

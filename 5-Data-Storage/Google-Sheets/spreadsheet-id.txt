@@ -1,0 +1,48 @@
+# Google Sheets Spreadsheet ID
+
+**Spreadsheet Name:** Performance Review Writer - User Tracking
+**Spreadsheet ID:** 1CCbOCSRsNUI79HjqHyaXafutGNXF3nivUdkEPQemB_c
+**URL:** https://docs.google.com/spreadsheets/d/1CCbOCSRsNUI79HjqHyaXafutGNXF3nivUdkEPQemB_c/edit
+**Status:** ✅ Created and configured
+**Created:** 2025-11-04 19:00:37
+
+---
+
+## Schema
+
+| Column | Field Name | Data Type |
+|--------|------------|-----------|
+| A | Email | String |
+| B | Scans Remaining | Number |
+| C | Timestamp | DateTime |
+| D | Source | String |
+| E | Upgrade Status | String |
+
+---
+
+## Headers
+
+Row 1 contains the headers:
+- Email
+- Scans Remaining
+- Timestamp
+- Source
+- Upgrade Status
+
+Headers are formatted: **Bold**, Blue background, Frozen row 1
+
+---
+
+## Next Steps
+
+1. ✅ Spreadsheet created
+2. ⏭️ Share with N8N service account (Step 5: Google Sheets Integration)
+3. ⏭️ Configure N8N Google Sheets credentials (Step 5)
+4. ⏭️ Test read/write operations (Step 6: Rewrite Workflow)
+
+
+
+
+
+
+

@@ -22,3 +22,9 @@ Process premium upgrades. (User will connect Stripe API separately)
 - Pricing tier configuration
 - Test payment scripts
 
+
+
+
+
+
+

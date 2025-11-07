@@ -1,0 +1,258 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-inter: 'Inter', system-ui, sans-serif;
+  
+  /* Your Brand Colors - Teal Primary (#00bcd4) */
+  /* Using tweakcn-style color system with HSL values */
+  --background: 0 0% 100%;
+  --foreground: 0 0% 9%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 9%;
+  
+  /* Primary - Your Teal Brand */
+  --primary: 188 100% 42%; /* #00bcd4 */
+  --primary-foreground: 0 0% 100%;
+  
+  /* Secondary - Light teal tints */
+  --secondary: 188 100% 96%;
+  --secondary-foreground: 188 100% 20%;
+  
+  /* Muted - Very light teal */
+  --muted: 188 100% 98%;
+  --muted-foreground: 0 0% 45%;
+  
+  /* Accent - Teal accent */
+  --accent: 188 100% 95%;
+  --accent-foreground: 188 100% 25%;
+  
+  /* Destructive */
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  
+  /* Borders and inputs - Teal-tinted */
+  --border: 188 100% 88%;
+  --input: 188 100% 98%;
+  --ring: 188 100% 42%; /* Your teal */
+  
+  /* Radius - Apple-like rounded */
+  --radius: 0.75rem;
+  
+  /* TweaKCN-style shadow system */
+  --shadow-2xs: 0 1px 1px 0 rgb(0 0 0 / 0.05);
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow: 0 2px 4px -1px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  
+  /* Letter spacing - tweakcn style */
+  --letter-spacing: 0em;
+  --tracking-tighter: calc(var(--letter-spacing) - 0.05em);
+  --tracking-tight: calc(var(--letter-spacing) - 0.025em);
+  --tracking-normal: var(--letter-spacing);
+  --tracking-wide: calc(var(--letter-spacing) + 0.025em);
+  --tracking-wider: calc(var(--letter-spacing) + 0.05em);
+  --tracking-widest: calc(var(--letter-spacing) + 0.1em);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-white text-foreground antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "kern" 1;
+    text-rendering: optimizeLegibility;
+    letter-spacing: var(--letter-spacing);
+  }
+  
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  *:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+}
+
+/* High-end GSAP animation keyframes */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px hsl(var(--primary) / 0.6);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Glass morphism - Apple-like */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Refined grid pattern */
+.bg-grid-apple {
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+@layer components {
+  /* High-end button with your teal */
+  .btn-apple {
+    @apply bg-primary text-primary-foreground font-medium px-8 py-3 rounded-full;
+    @apply shadow-lg hover:shadow-xl;
+    @apply transition-all duration-300 ease-out;
+    @apply transform hover:scale-[1.02] active:scale-[0.98];
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(188 100% 38%) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .btn-apple::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+  }
+  
+  .btn-apple:hover::before {
+    left: 100%;
+  }
+  
+  .btn-apple:hover {
+    background: linear-gradient(135deg, hsl(188 100% 38%) 0%, hsl(188 100% 35%) 100%);
+  }
+  
+  /* Apple-inspired input */
+  .input-apple {
+    @apply w-full px-4 py-3 bg-white border border-border rounded-xl;
+    @apply focus:border-primary focus:ring-2 focus:ring-primary/20;
+    @apply transition-all duration-200 ease-out;
+    @apply text-base font-normal;
+    @apply shadow-sm focus:shadow-md;
+  }
+  
+  .input-apple:focus {
+    border-color: hsl(var(--primary));
+    box-shadow: 0 0 0 3px hsl(var(--primary) / 0.1);
+    transform: translateY(-1px);
+  }
+  
+  /* Apple-inspired card */
+  .card-apple {
+    @apply bg-white rounded-2xl border border-border;
+    @apply shadow-sm hover:shadow-lg;
+    @apply transition-all duration-300 ease-out;
+  }
+  
+  .card-apple:hover {
+    transform: translateY(-2px);
+  }
+  
+  /* Refined text styles */
+  .text-apple-title {
+    @apply text-5xl md:text-6xl font-semibold tracking-tight;
+    @apply text-foreground;
+    letter-spacing: -0.02em;
+  }
+  
+  .text-apple-subtitle {
+    @apply text-xl md:text-2xl font-normal text-muted-foreground;
+    @apply leading-relaxed;
+    letter-spacing: -0.01em;
+  }
+  
+  .text-apple-body {
+    @apply text-base font-normal text-foreground;
+    @apply leading-relaxed;
+    line-height: 1.6;
+  }
+}
+
+/* Scrollbar styling */
+.scrollbar-apple {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.scrollbar-apple::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scrollbar-apple::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-apple::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.scrollbar-apple::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}

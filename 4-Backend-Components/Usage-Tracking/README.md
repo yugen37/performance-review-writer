@@ -22,3 +22,9 @@ Track free scans per email address using Google Sheets via N8N.
 - Database schema documentation
 - Migration scripts
 
+
+
+
+
+
+

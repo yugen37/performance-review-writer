@@ -22,3 +22,9 @@ Email storage and usage tracking via N8N automation.
 - Data migration scripts
 - Schema documentation
 
+
+
+
+
+
+

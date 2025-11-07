@@ -21,3 +21,9 @@ Store email addresses and track scan usage.
 - Email validation rules
 - Storage migration scripts
 
+
+
+
+
+
+
